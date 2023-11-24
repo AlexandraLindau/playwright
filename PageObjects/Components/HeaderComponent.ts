@@ -1,6 +1,12 @@
-class HeaderComponent {
-    constructor(page) {
-        this.page = page;
+import BasePage from "../BasePage";
+import { Page } from 'playwright-core';
+
+class HeaderComponent extends BasePage {
+    title: string;
+    shoppingCart: string;
+    shoppingCartBadge: string;
+    constructor(page: Page) {
+        super(page);
         this.title = '.title';
         this.shoppingCart = '.shopping_cart_link';
         this.shoppingCartBadge = '.shopping_cart_badge';

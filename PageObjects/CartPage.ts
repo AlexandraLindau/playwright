@@ -1,11 +1,14 @@
 import BasePage from './BasePage.js';
 import HeaderComponent from './Components/HeaderComponent.js';
 import Product from '../models/Product.js'
+import { Page } from 'playwright-core';
 
 class CartPage extends BasePage {
-    constructor(page) {
-        super();
-        this.page = page;
+    headerComponenet: HeaderComponent;
+    products: string;
+    product: { title: string; quantity: string; description: string; price: string; button: string; };
+    constructor(page: Page) {
+        super(page);
         this.endpoint = 'cart.html';
         this.headerComponenet = new HeaderComponent(page);
         this.products = '.cart_item';

@@ -1,8 +1,12 @@
 import BasePage from './BasePage.js';
+import { Page } from 'playwright-core';
 
 class LoginPage extends BasePage {
-    constructor(page) {
-        super();
+    usernameField: string;
+    passwordField: string;
+    loginButton: string;
+    constructor(page: Page) {
+        super(page);
         this.page = page;
         this.endpoint = '';
         this.usernameField = 'Username';
