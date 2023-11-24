@@ -4,7 +4,7 @@ import ProductsPage from '../PageObjects/ProductsPage';
 import { standardUser } from './data-provider';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com');
+    await page.goto('');
 });
 
 

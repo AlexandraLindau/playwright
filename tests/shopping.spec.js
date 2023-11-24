@@ -5,7 +5,7 @@ import CartPage from '../PageObjects/CartPage';
 import { standardUser } from './data-provider';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://www.saucedemo.com');
+  await page.goto('');
   const loginPage = new LoginPage(page);
   await loginPage.logIn(standardUser.username, standardUser.password);
 });
