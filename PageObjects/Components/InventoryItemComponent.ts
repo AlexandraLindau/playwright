@@ -1,39 +1,25 @@
-import BasePage from "../BasePage";
 import { Page } from 'playwright-core';
-import { Locator } from '@playwright/test';
+import ProductDetails from "./ProductDetails";
 
-class InventoryItemComponent extends BasePage {
-    products: Locator;
+class InventoryItemComponent extends ProductDetails {
     constructor(page: Page) {
-        super(page);
-        this.products = this.page.locator('.inventory_item');
+        super(page, '.inventory_item');
     }
 
     getProductTitle(index: number) {
-        return this.page.locator(`.inventory_item:nth-of-type(${index}) .inventory_item_name`);
+        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productTitleSelector}`);
     }
 
     getProductDescription(index: number) {
-        return this.page.locator(`.inventory_item:nth-of-type(${index}) .inventory_item_desc`);
+        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productDescriptionSelector}`);
     }
 
     getProductPrice(index: number) {
-        return this.page.locator(`.inventory_item:nth-of-type(${index}) .inventory_item_price`);
+        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productPriceSelector}`);
     }
 
     getProductButton(index: number) {
-        return this.page.locator(`.inventory_item:nth-of-type(${index}) .btn.btn_primary.btn_small.btn_inventory`);
-    }
-
-    async getProductByIndex(index: number): Promise <IProduct> {
-        const title = await this.getProductTitle(index).innerText();
-        const description = await this.getProductDescription(index).innerText();
-        const price = await this.getProductPrice(index).innerText();
-        return { title, description, price };
-    }
-
-    async getProductsList() {
-        return await this.products.all();
+        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) ${super.productButtonSelector}`);
     }
 
     async addItemToCartByIndex(index: number) {

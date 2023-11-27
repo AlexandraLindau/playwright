@@ -1,44 +1,35 @@
-import BasePage from "../BasePage";
-import { Page } from 'playwright-core';
-import { Locator } from '@playwright/test';
 
-class CartItemComponent extends BasePage {
-    products: Locator;
+import { Page } from 'playwright-core';
+import ProductDetails from "./ProductDetails";
+
+class CartItemComponent extends ProductDetails {
     constructor(page: Page) {
-        super(page);
-        this.products = this.page.locator('.cart_item');
+        super(page, '(//div[@class="cart_item"])');
     }
 
     getProductTitle(index: number) {
         // return this.products.nth(index).locator('.inventory_item_name');
-        return this.page.locator(`(//div[@class="cart_item"])[${index}]//div[@class="inventory_item_name"]`);
+        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productTitleSelector}"]`);
     }
 
     getProductQuantity(index: number) {
         // return this.products.nth(index).locator('.cart_quantity');
-        return this.page.locator(`(//div[@class="cart_item"])[${index}]//div[@class="cart_quantity"]`);
+        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="cart_quantity"]`);
     }
 
     getProductDescription(index: number) {
         // return this.products.nth(index).locator('.inventory_item_desc');
-        return this.page.locator(`(//div[@class="cart_item"])[${index}]//div[@class="inventory_item_desc"]`);
+        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productDescriptionSelector}"]`);
     }
 
     getProductPrice(index: number) {
         // return this.products.nth(index).locator('.inventory_item_price');
-        return this.page.locator(`(//div[@class="cart_item"])[${index}]//div[@class="inventory_item_price"]`);
+        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productPriceSelector}"]`);
     }
 
     getProductButton(index: number) {
         // return this.products.nth(index).locator('button');
-        return this.page.locator(`(//div[@class="cart_item"])[${index}]//button`);
-    }
-
-    async getProductByIndex(index: number): Promise <IProduct> {
-        const title = await this.getProductTitle(index).innerText();
-        const description = await this.getProductDescription(index).innerText();
-        const price = await this.getProductPrice(index).innerText();
-        return { title, description, price };
+        return this.page.locator(`${super.baseProductSelector}[${index}]//${super.productButtonSelector}`);
     }
 
     async removeProductByIndex(index: number) {

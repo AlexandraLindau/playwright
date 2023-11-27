@@ -13,22 +13,11 @@ class HeaderComponent extends BasePage {
         this.shoppingCartBadge = this.page.locator('.shopping_cart_badge').first();
     }
 
-    // async getTitle() {
-    //     return await this.page.locator(this.title).first();
-    // }
-
-    // async getShoppingCart() {
-    //     return await this.page.locator(this.shoppingCart).first();
-    // }
-
     getShoppingCartBadgeCounter() {
-        // const element = await this.page.locator(this.shoppingCartBadge).first();
-        // return await element.innerText();
         return this.shoppingCartBadge.innerText();
     }
 
     async openCart() {
-        // await this.page.locator(this.shoppingCart).click();
         await this.shoppingCart.click();
     }
 }

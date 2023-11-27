@@ -3,3 +3,5 @@ interface IProduct {
     description: string,
     price: string
 }
+
+export default IProduct;
