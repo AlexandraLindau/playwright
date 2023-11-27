@@ -34,7 +34,7 @@ class CartItemComponent extends BasePage {
         return this.page.locator(`(//div[@class="cart_item"])[${index}]//button`);
     }
 
-    async getProductByIndex(index: number) {
+    async getProductByIndex(index: number): Promise <IProduct> {
         const title = await this.getProductTitle(index).innerText();
         const description = await this.getProductDescription(index).innerText();
         const price = await this.getProductPrice(index).innerText();

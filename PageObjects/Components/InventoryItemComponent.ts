@@ -25,7 +25,7 @@ class InventoryItemComponent extends BasePage {
         return this.page.locator(`.inventory_item:nth-of-type(${index}) .btn.btn_primary.btn_small.btn_inventory`);
     }
 
-    async getProductByIndex(index: number) {
+    async getProductByIndex(index: number): Promise <IProduct> {
         const title = await this.getProductTitle(index).innerText();
         const description = await this.getProductDescription(index).innerText();
         const price = await this.getProductPrice(index).innerText();
