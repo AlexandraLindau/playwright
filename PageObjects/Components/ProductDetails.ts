@@ -13,6 +13,7 @@ abstract class ProductDetails extends BasePage {
     constructor(page: Page, baseProductSelector: string) {
         super(page);
         this.products = this.page.locator(baseProductSelector);
+        this.baseProductSelector = baseProductSelector;
         this.productTitleSelector = 'inventory_item_name';
         this.productDescriptionSelector = 'inventory_item_desc';
         this.productPriceSelector = 'inventory_item_price';

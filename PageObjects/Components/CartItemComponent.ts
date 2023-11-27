@@ -9,27 +9,27 @@ class CartItemComponent extends ProductDetails {
 
     getProductTitle(index: number) {
         // return this.products.nth(index).locator('.inventory_item_name');
-        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productTitleSelector}"]`);
+        return this.page.locator(`${this.baseProductSelector}[${index}]//div[@class="${this.productTitleSelector}"]`);
     }
 
     getProductQuantity(index: number) {
         // return this.products.nth(index).locator('.cart_quantity');
-        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="cart_quantity"]`);
+        return this.page.locator(`${this.baseProductSelector}[${index}]//div[@class="cart_quantity"]`);
     }
 
     getProductDescription(index: number) {
         // return this.products.nth(index).locator('.inventory_item_desc');
-        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productDescriptionSelector}"]`);
+        return this.page.locator(`${this.baseProductSelector}[${index}]//div[@class="${this.productDescriptionSelector}"]`);
     }
 
     getProductPrice(index: number) {
         // return this.products.nth(index).locator('.inventory_item_price');
-        return this.page.locator(`${super.baseProductSelector}[${index}]//div[@class="${super.productPriceSelector}"]`);
+        return this.page.locator(`${this.baseProductSelector}[${index}]//div[@class="${this.productPriceSelector}"]`);
     }
 
     getProductButton(index: number) {
         // return this.products.nth(index).locator('button');
-        return this.page.locator(`${super.baseProductSelector}[${index}]//${super.productButtonSelector}`);
+        return this.page.locator(`${this.baseProductSelector}[${index}]//${this.productButtonSelector}`);
     }
 
     async removeProductByIndex(index: number) {

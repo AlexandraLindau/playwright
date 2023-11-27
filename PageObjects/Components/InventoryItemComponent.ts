@@ -7,19 +7,19 @@ class InventoryItemComponent extends ProductDetails {
     }
 
     getProductTitle(index: number) {
-        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productTitleSelector}`);
+        return this.page.locator(`${this.baseProductSelector}:nth-of-type(${index}) .${this.productTitleSelector}`);
     }
 
     getProductDescription(index: number) {
-        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productDescriptionSelector}`);
+        return this.page.locator(`${this.baseProductSelector}:nth-of-type(${index}) .${this.productDescriptionSelector}`);
     }
 
     getProductPrice(index: number) {
-        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) .${super.productPriceSelector}`);
+        return this.page.locator(`${this.baseProductSelector}:nth-of-type(${index}) .${this.productPriceSelector}`);
     }
 
     getProductButton(index: number) {
-        return this.page.locator(`${super.baseProductSelector}:nth-of-type(${index}) ${super.productButtonSelector}`);
+        return this.page.locator(`${this.baseProductSelector}:nth-of-type(${index}) ${this.productButtonSelector}`);
     }
 
     async addItemToCartByIndex(index: number) {
