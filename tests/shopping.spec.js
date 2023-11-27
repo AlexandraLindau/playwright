@@ -3,11 +3,14 @@ import LoginPage from '../PageObjects/LoginPage';
 import ProductsPage from '../PageObjects/ProductsPage';
 import CartPage from '../PageObjects/CartPage';
 import { standardUser } from './data-provider';
+import 'dotenv/config'
 
 test.beforeEach(async ({ page }) => {
+  const username = process.env.USERNAME;
+  const password = process.env.PASSWORD;
   await page.goto('');
   const loginPage = new LoginPage(page);
-  await loginPage.logIn(standardUser.username, standardUser.password);
+  await loginPage.logIn(username, password);
 });
 
 
