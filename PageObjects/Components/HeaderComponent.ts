@@ -1,32 +1,35 @@
+import { Locator } from "@playwright/test";
 import BasePage from "../BasePage";
 import { Page } from 'playwright-core';
 
 class HeaderComponent extends BasePage {
-    title: string;
-    shoppingCart: string;
-    shoppingCartBadge: string;
+    title: Locator;
+    shoppingCart: Locator;
+    shoppingCartBadge: Locator;
     constructor(page: Page) {
         super(page);
-        this.title = '.title';
-        this.shoppingCart = '.shopping_cart_link';
-        this.shoppingCartBadge = '.shopping_cart_badge';
+        this.title = this.page.locator('.title').first();
+        this.shoppingCart = this.page.locator('.shopping_cart_link').first();
+        this.shoppingCartBadge = this.page.locator('.shopping_cart_badge').first();
     }
 
-    async getTitle() {
-        return await this.page.locator(this.title).first();
-    }
+    // async getTitle() {
+    //     return await this.page.locator(this.title).first();
+    // }
 
-    async getShoppingCart() {
-        return await this.page.locator(this.shoppingCart).first();
-    }
+    // async getShoppingCart() {
+    //     return await this.page.locator(this.shoppingCart).first();
+    // }
 
-    async getShoppingCartBadgeCounter() {
-        const element = await this.page.locator(this.shoppingCartBadge).first();
-        return await element.innerText();
+    getShoppingCartBadgeCounter() {
+        // const element = await this.page.locator(this.shoppingCartBadge).first();
+        // return await element.innerText();
+        return this.shoppingCartBadge.innerText();
     }
 
     async openCart() {
-        await this.page.locator(this.shoppingCart).click();
+        // await this.page.locator(this.shoppingCart).click();
+        await this.shoppingCart.click();
     }
 }
 

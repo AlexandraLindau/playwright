@@ -12,9 +12,9 @@ test('Login as standard_user', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.logIn(standardUser.username, standardUser.password);
     const productsPage = new ProductsPage(page);
-    await expect(await productsPage.headerComponent.getTitle()).toHaveText('Products');
-    await expect(await productsPage.headerComponent.getShoppingCart()).toBeVisible();
+    await expect(productsPage.headerComponent.title).toHaveText('Products');
+    await expect(productsPage.headerComponent.shoppingCart).toBeVisible();
 
-    const productsList = await productsPage.getProductsList();
+    const productsList = await productsPage.inventoryItemComponent.getProductsList();
     await expect(productsList.length).toBeGreaterThanOrEqual(2);
 })
