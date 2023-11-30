@@ -8,9 +8,9 @@ class HeaderComponent extends BasePage {
     shoppingCartBadge: Locator;
     constructor(page: Page) {
         super(page);
-        this.title = this.page.locator('.title').first();
-        this.shoppingCart = this.page.locator('.shopping_cart_link').first();
-        this.shoppingCartBadge = this.page.locator('.shopping_cart_badge').first();
+        this.title = this.page.locator('.title');
+        this.shoppingCart = this.page.locator('.shopping_cart_link');
+        this.shoppingCartBadge = this.page.locator('.shopping_cart_badge');
     }
 
     getShoppingCartBadgeCounter() {
