@@ -1,0 +1,20 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "npx playwright test tests/",
+    "test:ui": "npx playwright test --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "dependencies": {
+    "typescript": "^5.3.2",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.9.4"
+  }
+}
