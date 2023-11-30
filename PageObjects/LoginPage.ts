@@ -15,7 +15,7 @@ class LoginPage extends BasePage {
         this.loginButton = this.page.locator('[data-test="login-button"]');
     }
 
-    async logIn(username, password) {
+    async logIn(username: string, password: string) {
         await this.usernameField.fill(username);
         await this.passwordField.fill(password);
         await this.loginButton.click();
