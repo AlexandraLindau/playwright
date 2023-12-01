@@ -4,7 +4,13 @@ import ProductDetails from "./ProductDetails";
 
 class CartItemComponent extends ProductDetails {
     constructor(page: Page) {
-        super(page, '(//div[@class="cart_item"])');
+        super(page, '//div[@class="cart_item"]');
+    }
+
+    async getProductTitleNew(index: number) {
+
+        return this.products.nth(index).locator('.inventory_item_name');
+        // return this.page.locator(`${this.baseProductSelector}[${index}]//div[@class="${this.productTitleSelector}"]`);
     }
 
     getProductTitle(index: number) {
