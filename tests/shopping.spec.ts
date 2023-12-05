@@ -2,6 +2,8 @@ import { expect } from '@playwright/test';
 import { test } from './fixture';
 import 'dotenv/config'
 import IProduct from '../models/IProduct';
+import { confirmation } from '../strings';
+import { user } from '../test-data';
 
 test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
@@ -26,19 +28,9 @@ test('Add product to cart', async ({ productsPage, cartPage }) => {
 });
 
 test('Add random products to cart', async ({ productsPage, cartPage }) => {
-  const maxNumber = (await productsPage.inventoryItemComponent.getProductsList()).length;
-  let numberOfProducts = Math.floor(Math.random() * maxNumber) + 1;
-  let expectedProducts: IProduct[] = [];
-  let actualProducts: IProduct[] = [];
 
-  while (numberOfProducts > 0) {
-    let itemIndex = Math.floor(Math.random() * 6);
-    if (await productsPage.inventoryItemComponent.getProductButton(itemIndex).innerText() === 'Add to cart') {
-      productsPage.inventoryItemComponent.addItemToCartByIndex(itemIndex);
-      expectedProducts.push(await productsPage.inventoryItemComponent.getProductByIndex(itemIndex));
-      numberOfProducts--;
-    }
-  }
+  let actualProducts: IProduct[] = [];
+  const expectedProducts = await productsPage.inventoryItemComponent.addRandomItemsToCart();
 
   await productsPage.headerComponent.openCart();
   const numberOfProductsInCart = (await cartPage.cartItemComponent.getProductsList()).length;
@@ -47,5 +39,26 @@ test('Add random products to cart', async ({ productsPage, cartPage }) => {
   }
 
   expect(actualProducts).toEqual(expectedProducts);
+
+});
+
+test('Add random products to cart and checkout', async ({ productsPage, cartPage, checkoutPage }) => {
+
+  const products = await productsPage.inventoryItemComponent.addRandomItemsToCart();
+  let expectedTotal: number = 0;
+  for (const element of products) {
+    expectedTotal += Number(element.price.replace('$', ''));
+  }
+
+  await productsPage.headerComponent.openCart();
+  await cartPage.clickCheckout();
+  await checkoutPage.fillInCheckoutInfo(user);
+  await checkoutPage.clickContinue();
+  const actualTotal = await checkoutPage.getSubtotalAmout();
+  expect(actualTotal).toEqual(expectedTotal);
+
+  await checkoutPage.clickFinish();
+  expect(await checkoutPage.resultHeader.innerText()).toEqual(confirmation.header);
+  expect(await checkoutPage.resultMessage.innerText()).toEqual(confirmation.message);
 
 })
