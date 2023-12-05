@@ -46,6 +46,15 @@ abstract class ProductDetails extends BasePage {
     async getProductsList() {
         return await this.products.all();
     }
+
+    async getAllItemsPrice() {
+        let prices: string[] = [];
+        const allProduct = await this.getProductsList();
+        for (let i = 0; i < allProduct.length; i++) {
+            prices.push(await this.getProductPrice(i).innerText());
+        }
+        return prices;
+    }
 }
 
 export default ProductDetails;
