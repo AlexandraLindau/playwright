@@ -14,19 +14,27 @@ abstract class ProductDetails extends BasePage {
         super(page);
         this.products = this.page.locator(baseProductSelector);
         this.baseProductSelector = baseProductSelector;
-        this.productTitleSelector = 'inventory_item_name';
-        this.productDescriptionSelector = 'inventory_item_desc';
-        this.productPriceSelector = 'inventory_item_price';
+        this.productTitleSelector = '.inventory_item_name';
+        this.productDescriptionSelector = '.inventory_item_desc';
+        this.productPriceSelector = '.inventory_item_price';
         this.productButtonSelector = 'button';
     }
 
-    abstract getProductTitle(index: number): Locator;
+    getProductTitle(index: number): Locator {
+        return this.products.nth(index).locator(this.productTitleSelector);
+    };
 
-    abstract getProductDescription(index: number): Locator;
+    getProductDescription(index: number): Locator {
+        return this.products.nth(index).locator(this.productDescriptionSelector);
+    };
 
-    abstract getProductPrice(index: number): Locator;
+    getProductPrice(index: number): Locator {
+        return this.products.nth(index).locator(this.productPriceSelector);
+    };
 
-    abstract getProductButton(index: number): Locator;
+    getProductButton(index: number): Locator {
+        return this.products.nth(index).locator(this.productButtonSelector);
+    };
 
     async getProductByIndex(index: number): Promise<IProduct> {
         const title = await this.getProductTitle(index).innerText();
