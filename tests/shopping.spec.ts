@@ -1,25 +1,20 @@
-import { test, expect } from '@playwright/test';
-import LoginPage from '../PageObjects/LoginPage';
-import ProductsPage from '../PageObjects/ProductsPage';
-import CartPage from '../PageObjects/CartPage';
+import { expect } from '@playwright/test';
+import { test } from './fixture';
 import 'dotenv/config'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
-  const loginPage = new LoginPage(page);
   await loginPage.logIn(process.env.USERNAME, process.env.PASSWORD);
 });
 
 
-test('Add product to cart', async ({ page }) => {
-  const productsPage = new ProductsPage(page);
+test('Add product to cart', async ({ productsPage, cartPage }) => {
   await productsPage.inventoryItemComponent.addItemToCartByIndex(0);
   const actualNumberOfItemsInCart = await productsPage.headerComponent.getShoppingCartBadgeCounter();
   expect(actualNumberOfItemsInCart).toEqual('1');
 
   const productOnProductsPage = await productsPage.inventoryItemComponent.getProductByIndex(0);
   await productsPage.headerComponent.openCart();
-  const cartPage = new CartPage(page);
   const productOnCartPage = await cartPage.cartItemComponent.getProductByIndex(0);
 
   expect(productOnCartPage).toEqual(productOnProductsPage);
