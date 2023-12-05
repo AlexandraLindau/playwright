@@ -16,5 +16,5 @@ test('Login as standard_user', async ({ page }) => {
     await expect(productsPage.headerComponent.shoppingCart).toBeVisible();
 
     const productsList = await productsPage.inventoryItemComponent.getProductsList();
-    await expect(productsList.length).toBeGreaterThanOrEqual(2);
+    expect(productsList.length).toBeGreaterThanOrEqual(2);
 })
