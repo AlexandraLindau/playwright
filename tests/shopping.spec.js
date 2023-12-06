@@ -13,18 +13,18 @@ test.beforeEach(async ({ page }) => {
 
 test('Add product to cart', async ({ page }) => {
   const productsPage = new ProductsPage(page);
-  await productsPage.inventoryItemComponent.addItemToCartByIndex(1);
+  await productsPage.inventoryItemComponent.addItemToCartByIndex(0);
   const actualNumberOfItemsInCart = await productsPage.headerComponent.getShoppingCartBadgeCounter();
-  await expect(actualNumberOfItemsInCart).toEqual('1');
+  expect(actualNumberOfItemsInCart).toEqual('1');
 
-  const productOnProductsPage = await productsPage.inventoryItemComponent.getProductByIndex(1);
+  const productOnProductsPage = await productsPage.inventoryItemComponent.getProductByIndex(0);
   await productsPage.headerComponent.openCart();
   const cartPage = new CartPage(page);
-  const productOnCartPage = await cartPage.cartItemComponent.getProductByIndex(1);
+  const productOnCartPage = await cartPage.cartItemComponent.getProductByIndex(0);
 
-  await expect(productOnCartPage).toEqual(productOnProductsPage);
+  expect(productOnCartPage).toEqual(productOnProductsPage);
 
-  cartPage.cartItemComponent.removeProductByIndex(1);
+  cartPage.cartItemComponent.removeProductByIndex(0);
   await expect(cartPage.headerComponenet.shoppingCartBadge).toBeHidden();
   await expect(cartPage.cartItemComponent.products).toBeHidden();
 })
