@@ -36,18 +36,18 @@ abstract class ProductDetails extends BasePage {
         return this.products.nth(index).locator(this.productButtonSelector);
     };
 
-    async getProductByIndex(index: number): Promise<IProduct> {
+    async getProductDataByIndex(index: number): Promise<IProduct> {
         const title = await this.getProductTitle(index).innerText();
         const description = await this.getProductDescription(index).innerText();
         const price = await this.getProductPrice(index).innerText();
         return { title, description, price };
     }
 
-    async getProductsList() {
+    async getProductsList(): Promise <Locator[]> {
         return await this.products.all();
     }
 
-    async getAllItemsPrice() {
+    async getAllItemsPrice(): Promise <string[]> {
         let prices: string[] = [];
         const allProduct = await this.getProductsList();
         for (let i = 0; i < allProduct.length; i++) {

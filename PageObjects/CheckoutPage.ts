@@ -30,25 +30,25 @@ class CheckoutPage extends BasePage {
         this.resultMessage = page.locator('.complete-text');
     }
 
-    async clickCheckout() {
+    async clickCheckout(): Promise <void> {
         await this.checkoutButton.click();
     }
 
-    async clickFinish() {
+    async clickFinish(): Promise <void> {
         await this.finishButton.click();
     }
 
-    async clickContinue() {
+    async clickContinue(): Promise <void> {
         await this.continueButton.click();
     }
 
-    async fillInCheckoutInfo({ firstName, lastName, zipCode }) {
+    async fillInCheckoutInfo({ firstName, lastName, zipCode }: { firstName: string, lastName: string, zipCode: string}): Promise <void> {
         await this.firstNameField.fill(firstName);
         await this.lastNameField.fill(lastName);
         await this.zipCodeField.fill(zipCode);
     }
 
-    async getSubtotalAmout() {
+    async getSubtotalAmout(): Promise <number> {
         const total = await this.subtotal.innerText();
         return Number(total.replace('Item total: $', ''));
     }

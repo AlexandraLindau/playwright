@@ -4,14 +4,14 @@ import 'dotenv/config'
 
 test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
-  await loginPage.logIn(process.env.USERNAME, process.env.PASSWORD);
+  await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
 });
 
 
 test('Sort items by price from low to high', async ({ productsPage }) => {
     const prices = await productsPage.inventoryItemComponent.getAllItemsPrice();
     const expectedPrices = sortPricesAscending(prices);
-    await productsPage.openSortingMenu();
+    await productsPage.selectSortingOption(productsPage.sortingOption.priceAsc);
     const actualPrices = await productsPage.inventoryItemComponent.getAllItemsPrice();
     expect(expectedPrices).toEqual(actualPrices);
 });

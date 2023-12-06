@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 
 
 test('Login as standard_user', async ({ loginPage, productsPage }) => {
-    await loginPage.logIn(process.env.USERNAME, process.env.PASSWORD);
+    await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
     await expect(productsPage.headerComponent.title).toHaveText('Products');
     await expect(productsPage.headerComponent.shoppingCart).toBeVisible();
 

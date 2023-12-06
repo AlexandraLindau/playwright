@@ -18,7 +18,7 @@ class CartPage extends BasePage {
         this.checkoutButton = page.locator('#checkout');
     }
 
-    async clickCheckout() {
+    async clickCheckout(): Promise <void> {
         await this.checkoutButton.click();
     }
 }

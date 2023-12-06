@@ -5,15 +5,14 @@ import InventoryItemComponent from './Components/InventoryItemComponent.js';
 import { Locator } from '@playwright/test';
 
 class ProductsPage extends BasePage {
+
     headerComponent: HeaderComponent;
     inventoryItemComponent: InventoryItemComponent;
     products: string;
     product: { title: string; description: string; price: string; button: string; };
     sortingMenu: Locator;
-    sortByPriceAcsSelector: string;
-    sortByPriceDecsSelector: string;
-    sortByNameAcsSelector: string;
-    sortByNameDecsSelector: string;
+    sortingOption: typeof SortingOption;
+
     constructor(page: Page) {
         super(page);
         this.page = page;
@@ -21,15 +20,19 @@ class ProductsPage extends BasePage {
         this.headerComponent = new HeaderComponent(page);
         this.inventoryItemComponent = new InventoryItemComponent(page);
         this.sortingMenu = this.page.getByRole('combobox');
-        this.sortByPriceAcsSelector = 'lohi';
-        this.sortByPriceDecsSelector = 'hilo';
-        this.sortByNameAcsSelector = 'az';
-        this.sortByNameDecsSelector = 'za';
+        this.sortingOption = SortingOption;
     }
 
-    async openSortingMenu() {
-        await this.sortingMenu.selectOption(this.sortByPriceAcsSelector);
+    async selectSortingOption(sorting: SortingOption): Promise <void> {
+        await this.sortingMenu.selectOption(sorting);
     }
+}
+
+enum SortingOption {
+    priceAsc = 'lohi',
+    priceDesc = 'hilo',
+    nameAsc = 'az',
+    nameDesc = 'za'
 }
 
 export default ProductsPage;

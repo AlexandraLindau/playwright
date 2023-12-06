@@ -7,11 +7,11 @@ class InventoryItemComponent extends ProductDetails {
         super(page, '.inventory_item');
     }
 
-    async addItemToCartByIndex(index: number) {
+    async addItemToCartByIndex(index: number): Promise <void> {
         await this.getProductButton(index).click();
     }
 
-    async addRandomItemsToCart() {
+    async addRandomItemsToCart(): Promise <IProduct[]> {
         const maxNumber = (await super.getProductsList()).length;
         let numberOfProducts = Math.floor(Math.random() * maxNumber) + 1;
         let products: IProduct[] = [];
@@ -20,7 +20,7 @@ class InventoryItemComponent extends ProductDetails {
             let itemIndex = Math.floor(Math.random() * 6);
             if (await super.getProductButton(itemIndex).innerText() === 'Add to cart') {
                 await this.addItemToCartByIndex(itemIndex);
-                products.push(await super.getProductByIndex(itemIndex));
+                products.push(await super.getProductDataByIndex(itemIndex));
                 numberOfProducts--;
             }
         }

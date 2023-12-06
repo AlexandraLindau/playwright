@@ -7,7 +7,7 @@ import { user } from '../test-data';
 
 test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
-  await loginPage.logIn(process.env.USERNAME, process.env.PASSWORD);
+  await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
 });
 
 
@@ -16,9 +16,9 @@ test('Add product to cart', async ({ productsPage, cartPage }) => {
   const actualNumberOfItemsInCart = await productsPage.headerComponent.getShoppingCartBadgeCounter();
   expect(actualNumberOfItemsInCart).toEqual('1');
 
-  const productOnProductsPage = await productsPage.inventoryItemComponent.getProductByIndex(0);
+  const productOnProductsPage = await productsPage.inventoryItemComponent.getProductDataByIndex(0);
   await productsPage.headerComponent.openCart();
-  const productOnCartPage = await cartPage.cartItemComponent.getProductByIndex(0);
+  const productOnCartPage = await cartPage.cartItemComponent.getProductDataByIndex(0);
 
   expect(productOnCartPage).toEqual(productOnProductsPage);
 
@@ -29,14 +29,10 @@ test('Add product to cart', async ({ productsPage, cartPage }) => {
 
 test('Add random products to cart', async ({ productsPage, cartPage }) => {
 
-  let actualProducts: IProduct[] = [];
   const expectedProducts = await productsPage.inventoryItemComponent.addRandomItemsToCart();
 
   await productsPage.headerComponent.openCart();
-  const numberOfProductsInCart = (await cartPage.cartItemComponent.getProductsList()).length;
-  for (let i = 0; i < numberOfProductsInCart; i++) {
-    actualProducts.push(await cartPage.cartItemComponent.getProductByIndex(i));
-  }
+  let actualProducts: IProduct[] = await cartPage.cartItemComponent.getProductsFromCart();
 
   expect(actualProducts).toEqual(expectedProducts);
 
