@@ -13,11 +13,11 @@ class HeaderComponent extends BasePage {
         this.shoppingCartBadge = this.page.locator('.shopping_cart_badge');
     }
 
-    getShoppingCartBadgeCounter() {
+    getShoppingCartBadgeCounter(): Promise <string> {
         return this.shoppingCartBadge.innerText();
     }
 
-    async openCart() {
+    async openCart(): Promise <void> {
         await this.shoppingCart.click();
     }
 }
