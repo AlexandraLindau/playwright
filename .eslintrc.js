@@ -29,8 +29,9 @@ module.exports = {
     },
     "rules": {
         "import/prefer-default-export": 0,
-        "max-len": ['warn', { 'code': 130 }],
+        "max-len": ['warn', { 'code': 150 }],
         "no-await-in-loop": 0,
-        "no-plusplus": 0
+        "no-plusplus": 0,
+        "class-methods-use-this": 0,
     }
 }
