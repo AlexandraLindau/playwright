@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from './fixture';
-import 'dotenv/config'
+import 'dotenv/config';
 import IProduct from '../models/IProduct';
 import { confirmation } from '../strings';
 import { user } from '../test-data';
@@ -9,7 +9,6 @@ test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
   await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
 });
-
 
 test('Add product to cart', async ({ productsPage, cartPage }) => {
   await productsPage.inventoryItemComponent.addItemToCartByIndex(0);
@@ -28,23 +27,18 @@ test('Add product to cart', async ({ productsPage, cartPage }) => {
 });
 
 test('Add random products to cart', async ({ productsPage, cartPage }) => {
-
   const expectedProducts = await productsPage.inventoryItemComponent.addRandomItemsToCart();
 
   await productsPage.headerComponent.openCart();
-  let actualProducts: IProduct[] = await cartPage.cartItemComponent.getProductsFromCart();
+  const actualProducts: IProduct[] = await cartPage.cartItemComponent.getProductsFromCart();
 
   expect(actualProducts).toEqual(expectedProducts);
-
 });
 
 test('Add random products to cart and checkout', async ({ productsPage, cartPage, checkoutPage }) => {
-
   const products = await productsPage.inventoryItemComponent.addRandomItemsToCart();
-  let expectedTotal: number = 0;
-  for (const element of products) {
-    expectedTotal += Number(element.price.replace('$', ''));
-  }
+  const expectedTotal: number = products.map((element) => Number(element.price.replace('$', '')))
+    .reduce((total, price) => total + price);
 
   await productsPage.headerComponent.openCart();
   await cartPage.clickCheckout();
@@ -56,5 +50,4 @@ test('Add random products to cart and checkout', async ({ productsPage, cartPage
   await checkoutPage.clickFinish();
   expect(await checkoutPage.resultHeader.innerText()).toEqual(confirmation.header);
   expect(await checkoutPage.resultMessage.innerText()).toEqual(confirmation.message);
-
-})
+});
