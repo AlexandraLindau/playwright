@@ -13,9 +13,15 @@ test.beforeEach(async ({ page, loginPage }) => {
 });
 
 test('Sort items by price from low to high', async ({ productsPage }) => {
-  const prices = await productsPage.inventoryItemComponent.getAllItemsPrice();
-  const expectedPrices = sortPricesAscending(prices);
-  await productsPage.selectSortingOption(SortingOption.priceAsc);
-  const actualPrices = await productsPage.inventoryItemComponent.getAllItemsPrice();
-  expect(expectedPrices).toEqual(actualPrices);
+  let expectedPrices: string[];
+  await test.step('Calculate expected sorting', async () => {
+    const prices = await productsPage.inventoryItemComponent.getAllItemsPrice();
+    expectedPrices = sortPricesAscending(prices);
+  });
+
+  await test.step('Sort products by price from low to high', async () => {
+    await productsPage.selectSortingOption(SortingOption.priceAsc);
+    const actualPrices = await productsPage.inventoryItemComponent.getAllItemsPrice();
+    expect(expectedPrices).toEqual(actualPrices);
+  });
 });
