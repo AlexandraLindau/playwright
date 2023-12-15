@@ -4,13 +4,18 @@
   "description": "",
   "scripts": {
     "test": "npx playwright test tests/",
-    "test:ui": "npx playwright test --ui"
+    "test:ui": "npx playwright test --ui",
+    "test:login": "npx playwright test login.spec.ts",
+    "postinstall": "npm update browserstack-node-sdk",
+    "test-browserstack": "npx browserstack-node-sdk playwright test tests/",
+    "test:ui-browserstack": "npx browserstack-node-sdk playwright test --ui",
+    "test:login-browserstack": "npx browserstack-node-sdk playwright test login.spec.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browserstack-node-sdk": "^1.2.9",
+    "browserstack-node-sdk": "^1.31.5",
     "dotenv": "^16.3.1",
     "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
