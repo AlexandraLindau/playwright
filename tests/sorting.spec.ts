@@ -2,6 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from './fixture';
 import 'dotenv/config';
 import { SortingOption } from '../PageObjects/ProductsPage';
+import { calculateExpectedSorting } from '../Helpers/sorting-helper';
 
 test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
@@ -16,7 +17,7 @@ sortings.forEach((sorting) => {
     let expectedValues: string[];
     await test.step('Calculate expected sorting', async () => {
       const values: string[] = await productsPage.inventoryItemComponent.getValues(sorting);
-      expectedValues = productsPage.inventoryItemComponent.calculateExpectedSorting(values, sorting);
+      expectedValues = calculateExpectedSorting(values, sorting);
     });
 
     await test.step('Sort products by price from low to high', async () => {

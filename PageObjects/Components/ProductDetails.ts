@@ -79,24 +79,6 @@ abstract class ProductDetails extends BasePage {
     }
     return [];
   }
-
-  sortByPrice(prices: string[], asc: boolean): string[] {
-    return prices.map((element) => Number(element.replace('$', ''))).sort((a, b) => (asc ? a - b : b - a)).map((element) => `$${element}`);
-  }
-
-  sortByName(names: string[], asc: boolean): string[] {
-    return names.sort((a, b) => (asc ? a.localeCompare(b) : b.localeCompare(a)));
-  }
-
-  calculateExpectedSorting(elements: string[], sorting: SortingOption): string[] {
-    switch (sorting) {
-      case 'lohi': return this.sortByPrice(elements, true);
-      case 'hilo': return this.sortByPrice(elements, false);
-      case 'az': return this.sortByName(elements, true);
-      case 'za': return this.sortByName(elements, false);
-      default: throw new Error(`Invalid parameter: ${sorting}`);
-    }
-  }
 }
 
 export default ProductDetails;
