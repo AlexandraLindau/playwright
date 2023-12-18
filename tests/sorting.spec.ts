@@ -1,30 +1,29 @@
 import { expect } from '@playwright/test';
 import { test } from './fixture';
-import 'dotenv/config'
+import 'dotenv/config';
+import { SortingOption } from '../PageObjects/ProductsPage';
+import { calculateExpectedSorting } from '../Helpers/sorting-helper';
 
 test.beforeEach(async ({ page, loginPage }) => {
   await page.goto('');
   await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
 });
 
+const sortings: SortingOption[] = [SortingOption.priceAsc, SortingOption.priceDesc, SortingOption.nameAsc,
+  SortingOption.nameDesc];
 
-test('Sort items by price from low to high', async ({ productsPage }) => {
-    const prices = await productsPage.inventoryItemComponent.getAllItemsPrice();
-    const expectedPrices = sortPricesAscending(prices);
-    await productsPage.selectSortingOption(productsPage.sortingOption.priceAsc);
-    const actualPrices = await productsPage.inventoryItemComponent.getAllItemsPrice();
-    expect(expectedPrices).toEqual(actualPrices);
+sortings.forEach((sorting) => {
+  test(`Sort items ${sorting}`, async ({ productsPage }) => {
+    let expectedValues: string[];
+    await test.step('Calculate expected sorting', async () => {
+      const values: string[] = await productsPage.inventoryItemComponent.getValues(sorting);
+      expectedValues = calculateExpectedSorting(values, sorting);
+    });
+
+    await test.step('Sort products by price from low to high', async () => {
+      await productsPage.selectSortingOption(sorting);
+      const actualValues: string[] = await productsPage.inventoryItemComponent.getValues(sorting);
+      expect(expectedValues).toEqual(actualValues);
+    });
+  });
 });
-
-
-function sortPricesAscending(prices: string[]) {
-    const sortedPricesAscending: string[] = [];
-    for (const element of prices) {
-        sortedPricesAscending.push(element.replace('$', ''));
-    }
-    sortedPricesAscending.sort((a, b) => Number(a) - Number(b));
-    for (let i = 0; i < sortedPricesAscending.length; i++) {
-        sortedPricesAscending[i] = `$${sortedPricesAscending[i]}`;
-    }
-    return sortedPricesAscending;
-}

@@ -4,10 +4,11 @@ module.exports = {
         "es2021": true
     },
     "extends": [
-        "eslint:recommended", 
-        "airbnb",
-        "prettier"
+        "airbnb-base",
+        "airbnb-typescript/base"
     ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
     "overrides": [
         {
             "env": {
@@ -22,9 +23,15 @@ module.exports = {
         }
     ],
     "parserOptions": {
+        "project": true,
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {
+        "import/prefer-default-export": 0,
+        "max-len": ['warn', { 'code': 150 }],
+        "no-await-in-loop": 0,
+        "no-plusplus": 0,
+        "class-methods-use-this": 0,
     }
 }
