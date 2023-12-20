@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage';
 import HeaderComponent from './Components/HeaderComponent';
+import { step } from './Decorators/step-decorator';
 
 class CheckoutPage extends BasePage {
   headerComponenet: HeaderComponent;
@@ -49,6 +50,7 @@ class CheckoutPage extends BasePage {
     await this.continueButton.click();
   }
 
+  @step
   async fillInCheckoutInfo({ firstName, lastName, zipCode }:
   { firstName: string, lastName: string, zipCode: string }): Promise <void> {
     await this.firstNameField.fill(firstName);
@@ -59,6 +61,16 @@ class CheckoutPage extends BasePage {
   async getSubtotalAmout(): Promise <number> {
     const total = await this.subtotal.innerText();
     return Number(total.replace('Item total: $', ''));
+  }
+
+  @step
+  async checkout({ firstName, lastName, zipCode }:
+  { firstName: string, lastName: string, zipCode: string }): Promise <number> {
+    await this.fillInCheckoutInfo({ firstName, lastName, zipCode });
+    await this.clickContinue();
+    const actualTotal = await this.getSubtotalAmout();
+    await this.clickFinish();
+    return actualTotal;
   }
 }
 

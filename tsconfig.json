@@ -1,4 +1,6 @@
 { "compilerOptions": {
+    "target": "ES5",
+    "experimentalDecorators": true
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

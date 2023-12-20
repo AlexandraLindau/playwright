@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from '../BasePage';
+import { step } from '../Decorators/step-decorator';
 
 class HeaderComponent extends BasePage {
   title: Locator;
@@ -19,6 +20,7 @@ class HeaderComponent extends BasePage {
     return this.shoppingCartBadge.innerText();
   }
 
+  @step
   async openCart(): Promise <void> {
     await this.shoppingCart.click();
   }
