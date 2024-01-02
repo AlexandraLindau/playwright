@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage.js';
-import HeaderComponent from './Components/HeaderComponent.js';
+import { HeaderComponent } from './Components/HeaderComponent.js';
 import InventoryItemComponent from './Components/InventoryItemComponent.js';
 import { step } from './Decorators/step-decorator.js';
 

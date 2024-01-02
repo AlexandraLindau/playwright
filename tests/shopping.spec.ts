@@ -1,12 +1,11 @@
 import { expect } from '@playwright/test';
-import { test } from './fixture';
+import { test } from '../fixtures/fixture';
 import 'dotenv/config';
 import IProduct from '../models/IProduct';
 import { confirmation } from '../strings';
 import { user } from '../test-data';
 
-test.beforeEach(async ({ page, loginPage }) => {
-  await page.goto('');
+test.beforeEach(async ({ loginPage }) => {
   await loginPage.logIn(process.env.USERNAME as string, process.env.PASSWORD as string);
 });
 

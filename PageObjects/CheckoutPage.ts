@@ -1,9 +1,10 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage';
-import HeaderComponent from './Components/HeaderComponent';
+// eslint-disable-next-line import/no-cycle
+import { HeaderComponent } from './Components/HeaderComponent';
 import { step } from './Decorators/step-decorator';
 
-class CheckoutPage extends BasePage {
+export class CheckoutPage extends BasePage {
   headerComponenet: HeaderComponent;
 
   checkoutButton: Locator;
@@ -73,5 +74,3 @@ class CheckoutPage extends BasePage {
     return actualTotal;
   }
 }
-
-export default CheckoutPage;

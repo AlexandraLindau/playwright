@@ -1,7 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage.js';
-import HeaderComponent from './Components/HeaderComponent.js';
-// import CartItemComponent from './Components/CartItemComponent.js';
+import { HeaderComponent } from './Components/HeaderComponent.js';
 import IProduct from '../models/IProduct.js';
 import { CartItemComponent } from './Components/CartItemComponent.js';
 
