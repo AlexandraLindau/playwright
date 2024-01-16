@@ -1,8 +1,10 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage';
-import HeaderComponent from './Components/HeaderComponent';
+// eslint-disable-next-line import/no-cycle
+import { HeaderComponent } from './Components/HeaderComponent';
+import { step } from './Decorators/step-decorator';
 
-class CheckoutPage extends BasePage {
+export class CheckoutPage extends BasePage {
   headerComponenet: HeaderComponent;
 
   checkoutButton: Locator;
@@ -49,6 +51,7 @@ class CheckoutPage extends BasePage {
     await this.continueButton.click();
   }
 
+  @step
   async fillInCheckoutInfo({ firstName, lastName, zipCode }:
   { firstName: string, lastName: string, zipCode: string }): Promise <void> {
     await this.firstNameField.fill(firstName);
@@ -60,6 +63,14 @@ class CheckoutPage extends BasePage {
     const total = await this.subtotal.innerText();
     return Number(total.replace('Item total: $', ''));
   }
-}
 
-export default CheckoutPage;
+  @step
+  async checkout({ firstName, lastName, zipCode }:
+  { firstName: string, lastName: string, zipCode: string }): Promise <number> {
+    await this.fillInCheckoutInfo({ firstName, lastName, zipCode });
+    await this.clickContinue();
+    const actualTotal = await this.getSubtotalAmout();
+    await this.clickFinish();
+    return actualTotal;
+  }
+}

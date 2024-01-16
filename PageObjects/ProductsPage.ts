@@ -1,7 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './BasePage.js';
-import HeaderComponent from './Components/HeaderComponent.js';
+import { HeaderComponent } from './Components/HeaderComponent.js';
 import InventoryItemComponent from './Components/InventoryItemComponent.js';
+import { step } from './Decorators/step-decorator.js';
 
 class ProductsPage extends BasePage {
   headerComponent: HeaderComponent;
@@ -23,6 +24,7 @@ class ProductsPage extends BasePage {
     this.sortingMenu = this.page.getByRole('combobox');
   }
 
+  @step
   async selectSortingOption(sorting: SortingOption): Promise <void> {
     await this.sortingMenu.selectOption(sorting);
   }

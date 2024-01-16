@@ -1,7 +1,9 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from '../BasePage';
+// eslint-disable-next-line import/no-cycle
+import { step } from '../Decorators/step-decorator';
 
-class HeaderComponent extends BasePage {
+export class HeaderComponent extends BasePage {
   title: Locator;
 
   shoppingCart: Locator;
@@ -19,9 +21,8 @@ class HeaderComponent extends BasePage {
     return this.shoppingCartBadge.innerText();
   }
 
+  @step
   async openCart(): Promise <void> {
     await this.shoppingCart.click();
   }
 }
-
-export default HeaderComponent;
