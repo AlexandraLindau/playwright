@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-// import { _android as android } from 'playwright';
+import { _android as android } from 'playwright';
 import LoginPage from '../PageObjects/LoginPage';
 import ProductsPage from '../PageObjects/ProductsPage';
 import CartPage from '../PageObjects/CartPage';
@@ -15,6 +15,18 @@ type Fixtures = {
 };
 
 export const test = base.extend <Fixtures>({
+  page: async ({ baseURL, page }, use, testInfo) => {
+    if (testInfo.project.name === 'Mobile Chrome') {
+      const [device] = await android.devices();
+      await device.shell('am force-stop com.android.chrome');
+      const context = await device.launchBrowser();
+      // eslint-disable-next-line no-param-reassign
+      page = await context.newPage();
+    }
+    await page.goto(baseURL);
+    await use(page);
+  },
+
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
@@ -30,15 +42,4 @@ export const test = base.extend <Fixtures>({
   checkoutPage: async ({ page }, use) => {
     await use(new CheckoutPage(page));
   },
-
-  // page: async ({ baseURL, page }, use) => {
-  //   if (process.env.TEST_ON === 'android') {
-  //     const [device] = await android.devices();
-  //     await device.shell('am force-stop com.android.chrome');
-  //     const context = await device.launchBrowser();
-  //     page = await context.newPage();
-  //   }
-  //   await page.goto(baseURL);
-  //   await use(page);
-  // },
 });

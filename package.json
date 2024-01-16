@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npx playwright test tests/",
+    "test:web": "npx playwright test --project='chromium' && npx playwright test --project='firefox' && npx playwright test --project='webkit'",
     "test:ui": "npx playwright test --ui",
     "test:login": "npx playwright test login.spec.ts",
+    "test:mobile": "npx playwright test --project='Mobile Chrome'",
     "postinstall": "npm update browserstack-node-sdk",
-    "test-browserstack": "npx browserstack-node-sdk playwright test tests/",
-    "test:ui-browserstack": "npx browserstack-node-sdk playwright test --ui",
+    "test:browserstack-web": "npx browserstack-node-sdk playwright test --project='chromium' && npx playwright test --project='firefox' && npx playwright test --project='webkit'",
     "test:login-browserstack": "npx browserstack-node-sdk playwright test login.spec.ts"
   },
   "keywords": [],
@@ -17,12 +17,12 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
-    "browserstack-node-sdk": "^1.31.5",
+    "browserstack-node-sdk": "^1.31.13",
     "dotenv": "^16.3.1",
     "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-config-airbnb-typescript": "^17.1.0"
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0"
   },
   "dependencies": {
     "@playwright/test": "^1.40.0",
